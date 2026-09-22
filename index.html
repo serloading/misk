@@ -189,7 +189,7 @@ function applyFilter(){
   var lq=q.toLowerCase(); filtered=[];
   for(var i=0;i<DATA.length;i++){
     var d=DATA[i];
-    if(activeCat&&d.c!==activeCat) continue;
+    if(activeCat&&d.c!==activeCat&&!(d.c==='Unisex'&&(activeCat==='Kadın Parfümleri'||activeCat==='Erkek Parfümleri'))) continue;
     if(activeBrand&&d.b!==activeBrand) continue;
     if(lq&&d.n.toLowerCase().indexOf(lq)<0&&d.b.toLowerCase().indexOf(lq)<0&&d.c.toLowerCase().indexOf(lq)<0) continue;
     filtered.push(d);
@@ -244,7 +244,7 @@ function buildCatList(){
   var html='';
   for(var i=0;i<cats.length;i++){
     var v=cats[i][0],l=cats[i][1],cnt=0;
-    for(var j=0;j<DATA.length;j++) if(!v||DATA[j].c===v) cnt++;
+    for(var j=0;j<DATA.length;j++) if(!v||DATA[j].c===v||(DATA[j].c==='Unisex'&&(v==='Kadın Parfümleri'||v==='Erkek Parfümleri'))) cnt++;
     html+='<button class="opt-item'+(activeCat===v?' sel':'')+'" onclick="setCat(\''+v+'\')"><span>'+l+'</span><span class="opt-count">'+cnt+'</span><span class="chk">\u2713</span></button>';
   }
   document.getElementById('cat-list').innerHTML=html;
